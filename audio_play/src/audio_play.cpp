@@ -5,6 +5,8 @@
 
 #include "audio_common_msgs/AudioData.h"
 
+#include <ros/transport_hints.h>
+
 namespace audio_transport
 {
   class RosGstPlay
@@ -21,7 +23,7 @@ namespace audio_transport
         ros::param::param<std::string>("~dst", dst_type, "alsasink");
         ros::param::param<std::string>("~device", device, std::string());
 
-        _sub = _nh.subscribe("audio", 10, &RosGstPlay::onAudio, this);
+        _sub = _nh.subscribe("audio", 10000, &RosGstPlay::onAudio, this);
 
         _loop = g_main_loop_new(NULL, false);
 
@@ -30,8 +32,8 @@ namespace audio_transport
         g_object_set(G_OBJECT(_source), "do-timestamp", TRUE, NULL);
         gst_bin_add( GST_BIN(_pipeline), _source);
 
-        //_playbin = gst_element_factory_make("playbin2", "uri_play");
-        //g_object_set( G_OBJECT(_playbin), "uri", "file:///home/test/test.mp3", NULL);
+        // _playbin = gst_element_factory_make("playbin2", "uri_play");
+        // g_object_set( G_OBJECT(_playbin), "uri", "file:///home/output.mp3", NULL);
         if (dst_type == "alsasink")
         {
           _decoder = gst_element_factory_make("decodebin", "decoder");
@@ -75,6 +77,7 @@ namespace audio_transport
         gst_buffer_fill(buffer, 0, &msg->data[0], msg->data.size());
         GstFlowReturn ret;
 
+        
         g_signal_emit_by_name(_source, "push-buffer", buffer, &ret);
       }
 

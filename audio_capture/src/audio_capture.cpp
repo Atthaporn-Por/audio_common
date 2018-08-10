@@ -36,7 +36,7 @@ namespace audio_transport
         //ros::param::param<std::string>("~src", source_type, "alsasrc");
         std::string device;
         ros::param::param<std::string>("~device", device, "");
-
+        
         _pub = _nh.advertise<audio_common_msgs::AudioData>("audio", 10, true);
 
         _loop = g_main_loop_new(NULL, false);
@@ -115,7 +115,7 @@ namespace audio_transport
                                      "rate",     G_TYPE_INT, _sample_rate,
                                      "signed",   G_TYPE_BOOLEAN, TRUE,
                                      NULL);
-
+          
           g_object_set( G_OBJECT(_sink), "caps", caps, NULL);
           gst_caps_unref(caps);
           gst_bin_add_many( GST_BIN(_pipeline), _source, _sink, NULL);
@@ -221,7 +221,7 @@ int main (int argc, char **argv)
 {
   ros::init(argc, argv, "audio_capture");
   gst_init(&argc, &argv);
-
+  
   audio_transport::RosGstCapture server;
   ros::spin();
 }

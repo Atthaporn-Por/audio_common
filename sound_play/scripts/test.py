@@ -69,7 +69,7 @@ if __name__ == '__main__':
     print 'wave'
     soundhandle.playWave('say-beep.wav')
     sleep(2)
-    
+
     print 'quiet wave'
     soundhandle.playWave('say-beep.wav', 0.3)
     sleep(2)
@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     s1 = soundhandle.builtinSound(SoundRequest.NEEDS_UNPLUGGING_BADLY)
     s2 = soundhandle.waveSound("say-beep.wav")
-    s3 = soundhandle.voiceSound("Testing the new A P I")
+    s3 = soundhandle.voiceSound("Good Morning Teacher")
     s4 = soundhandle.builtinSound(SoundRequest.NEEDS_UNPLUGGING_BADLY, 0.3)
     s5 = soundhandle.waveSound("say-beep.wav", 0.3)
     s6 = soundhandle.voiceSound("Testing the new A P I", 0.3)

@@ -35,6 +35,12 @@
 #include <sound_play/sound_play.h>
 #include <unistd.h>
 
+#include <iostream>
+#include <stdlib.h>
+
+
+
+
 void sleepok(int t, ros::NodeHandle &nh)
 {
   if (nh.ok())
@@ -57,7 +63,9 @@ int main(int argc, char **argv)
     sleepok(2, nh);
     quiet_sc.say("Hello world!");
     sleepok(2, nh);
+    system("canberra-gtk-play -f /tmp/output.mp3");
 
+    sleepok(2,nh);
     const char *str1 = "I am annoying.";
     sc.repeat(str1);
     sleepok(4, nh);
